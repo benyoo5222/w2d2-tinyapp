@@ -26,6 +26,12 @@ app.get("/hello", (req, res) => { //handles any get method with the url of /hell
   res.end("<html><body>Hello <b>World</b></body></html>\n");
 });
 
+app.get("/urls/:id", (req, res) => { // handles request method of get and url of urls/:id
+  let templateVars = { shortURL: req.params.id,
+                       urls: urlDatabase }; //I am also passing the object of our database to compare with the parameter that was given to us by the user
+  res.render("urls_show", templateVars);
+});
+
 app.listen(PORT, () => { //listens to port 8080
   console.log(`Example app listening on port ${PORT}!`);
 });
