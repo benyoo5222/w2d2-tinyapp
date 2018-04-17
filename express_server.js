@@ -35,50 +35,32 @@ app.get("/hello", (req, res) => { //handles any get method with the url of /hell
   res.end("<html><body>Hello <b>World</b></body></html>\n");
 });
 
-app.get("/u/:shortURL", (req, res) => {
-
-  for(var key in urlDatabase){ // looks at the key in the database
-    if(req.path.replace(/\/u\//i,"") === key){ //replaces the '/u/' infront of the url that was requested
-      let longURL= urlDatabase[key]; // setting the longURL or the proper url as the value of the key that matches the requested url
-      if (longURL.search(/www./i) < 0) { //if there is no www.
-        longURL = "www." + longURL; // add www. ifront of the proper url
-        if (longURL.search(/https:\//i) < 0){ // if there was no https:// infront of the url
-          longURL= "https://"+longURL; //add the https:// infront of the url
-          res.redirect(longURL); // redirects to the url
-        } else {
-          res.redirect(longURL); // redirects to the url
-        }
-      } else { // saying that there is www. infront of the url
-        if (longURL.search(/https:\//i) < 0){ // if there was no https:// infront of the url
-          longURL= "https://"+longURL; //add the https:// infront of the url
-          res.redirect(longURL); // redirects to the url
-        } else {
-          res.redirect(longURL); // redirects to the url
-        }
-      }
-    } else {
-      res.send('404');
-    }
-  }
+//Start of POST routers
+app.post("/urls", (req, res) => { //Once there is a POST or have values in the body of the request to change the page, this gets invoked for /urls
+  var newurl = generateRandomString(); //req.body is an object that has the key of longURL thats assigned by <input> longURL= {longURL:"given URL by user"}
+  var newDatabase=addhttp(newurl, req.body);
+  console.log(urlDatabase);
+  res.redirect(`urls/${newurl}`);
 });
 
 app.get("/urls/:id", (req, res) => { // handles request method of get and url of urls/:id
-  let templateVars = { shortURL: req.params.id,
-                       urls: urlDatabase }; //I am also passing the object of our database to compare with the parameter that was given to us by the user
+  let templateVars = { shortURL: req.params.id, urls: urlDatabase }; //I am also passing the object of our database to compare with the parameter that was given to us by the user
   res.render("urls_show", templateVars);
 });
 
-//Start of POST routers
-app.post("/urls", (req, res) => { //Once there is a POST or have values in the body of the request to change the page, this gets invoked for /urls
-  var newurl= generateRandomString(req.body); //req.body is an object that has the key of longURL thats assigned by <input> longURL= {longURL:"given URL by user"}
-  for(var key in newurl){ //newurl is the newDataBase of the new added key and key represents each key in the new database
-    if(newurl[key] === req.body["longURL"]){ // if the object of the req.body of the key of "longURL" equals the value in the newdatabase
-      res.redirect(`/urls/${key}`); //it will be redirected with the new shortened name
-    }
+
+
+app.get("/u/:shortURL", (req, res) => {
+  console.log(urlDatabase);
+  var url= req.url.replace(/\/u\//i,"");
+  console.log(urlDatabase[url]);
+  if (urlDatabase[url]){
+    res.redirect(urlDatabase[url]);
+  } else{
+    res.send('404 This page does not exist')
   }
+
 });
-
-
 
 app.listen(PORT, () => { //listens to port 8080
   console.log(`Example app listening on port ${PORT}!`);
@@ -86,13 +68,24 @@ app.listen(PORT, () => { //listens to port 8080
 
 
 // function to generate a random 6 digit alphanumeric value to assign to the url given
-function generateRandomString(longURL) {
+function generateRandomString() {
   var characters= "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWVYZ";
   var shorturl= "";
 
   for(var a=0; a < 6; a++){
     shorturl += characters[Math.floor(Math.random()*characters.length)]; //creates a random name
   }
-  urlDatabase[shorturl] = longURL["longURL"]; //This adds a new key to the database
-  return urlDatabase; //returns the newdatabase
+  return shorturl;
+
+}
+
+function addhttp(newurl,longURL) {
+
+  if (longURL["longURL"].startsWith('http')){
+    urlDatabase[newurl] = longURL["longURL"]; //This adds a new key to the database
+    return urlDatabase; //returns the newdatabase
+  } else {
+    urlDatabase[newurl] = 'http://'+longURL["longURL"];
+    return urlDatabase;
+  }
 }

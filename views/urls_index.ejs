@@ -1,6 +1,7 @@
 <%- include('partials/_header.ejs') %>
 <body>
     <!-- Add your EJS code here -->
+    <p> These are the shortened urls for each website</p>
     <ul>
       <% var newkeys= []; %>
       <% for (key in urls) {%> <!-- getting each key in the urls object brought over by the .render in express_server.js -->
@@ -9,7 +10,7 @@
 
 
       <% for(var a = 0; a < newkeys.length; a++){ %>
-      <li>URLs: <%= urls[newkeys[a]]; %>  Shortened form: <%= newkeys[a] %></li> <!-- used a for loop to match each shortened urls to long URLs -->
+      <li><b>Website</b>: <a href= <%= urls[newkeys[a]] %> > <%= urls[newkeys[a]]; %></a>  <b>Shortened form</b>: <%= newkeys[a] %></li> <!-- used a for loop to match each shortened urls to long URLs -->
 
       <% } %>
     </ul>
