@@ -5,7 +5,7 @@
       <% let answer = true; %>
       <% for (var key in urls) { %> <!-- using for in loop to get the keys -->
       <% if (key == shortURL){ %> <!-- shortURL is the request id parameter that was passed to us from the user -->
-      <li>The URL you have given <%= shortURL %> and the proper url of that shortened form <%= urls[key] %></li>
+      <li>The URL you have given <%= urls[key] %> is shortened now to <%= shortURL %>. Try using the shortened URL by changing it to "/u/<b><%=shortURL%></b>". </li>
       <% } %>
       <% } %>
 
