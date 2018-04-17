@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/benyoo5222/w2d2-tinyapp#readme",
   "dependencies": {
+    "ejs": "^2.5.8",
     "express": "^4.16.3"
   }
 }

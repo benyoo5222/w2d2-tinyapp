@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>TinyApp</title>
+</head>
+<body>
+    <!-- Add your EJS code here -->
+    <ul>
+      <% var newkeys= []; %>
+      <% for (key in urls) {%> <!-- getting each key in the urls object brought over by the .render in express_server.js -->
+      <% newkeys.push(key) %> <!-- pushed each key into a new array -->
+      <% } %>
+
+
+      <% for(var a = 0; a < newkeys.length; a++){ %>
+      <li>URLs: <%= urls[newkeys[a]]; %>  Shortened form: <%= newkeys[a] %></li> <!-- used a for loop to match each shortened urls to long URLs -->
+
+      <% } %>
+    </ul>
+
+
+    <p> Click <a href=""> HERE </a> to shorten any urls! </p><!-- currently a dead link but send them to a page to write thier url and we shorten it for them -->
+</body>
+</html>
