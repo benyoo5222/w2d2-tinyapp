@@ -51,7 +51,7 @@ app.get("/urls/:id", (req, res) => { // handles request method of get and url of
 
 
 app.get("/u/:shortURL", (req, res) => {
-  console.log(urlDatabase);
+
   var url= req.url.replace(/\/u\//i,"");
   console.log(urlDatabase[url]);
   if (urlDatabase[url]){
