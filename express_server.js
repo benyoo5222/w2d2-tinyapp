@@ -5,6 +5,7 @@ var PORT = process.env.PORT || 8080; // default port 8080
 const bodyParser = require("body-parser");
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 app.set("view engine", "ejs"); // telling the express library to run ejs(embedded javascript) templates to run in a folder called views
 
@@ -31,17 +32,24 @@ app.get("/urls/new", (req, res) => { //handles any get method to url of urls/new
   res.render("urls_new");
 });
 
-app.get("/hello", (req, res) => { //handles any get method with the url of /hello
-  res.end("<html><body>Hello <b>World</b></body></html>\n");
-});
+
 
 //Start of POST routers
 app.post("/urls", (req, res) => { //Once there is a POST or have values in the body of the request to change the page, this gets invoked for /urls
   var newurl = generateRandomString(); //req.body is an object that has the key of longURL thats assigned by <input> longURL= {longURL:"given URL by user"}
   var newDatabase=addhttp(newurl, req.body);
-  console.log(urlDatabase);
   res.redirect(`urls/${newurl}`);
 });
+
+
+
+app.post("/urls/:id/delete", (req,res) =>{ //this handles the post request to any urls/query of the shortened url/delete
+  var gettingshorturl = req.body["deleteurl"];
+  delete urlDatabase[gettingshorturl];
+  res.redirect('/urls');
+});
+
+
 
 app.get("/urls/:id", (req, res) => { // handles request method of get and url of urls/:id
   let templateVars = { shortURL: req.params.id, urls: urlDatabase }; //I am also passing the object of our database to compare with the parameter that was given to us by the user
@@ -49,11 +57,17 @@ app.get("/urls/:id", (req, res) => { // handles request method of get and url of
 });
 
 
+app.post("/urls/:id" , (req, res) => { //handles post method request on any urls/:query
+  var updateurl= req.params.id;
+  urlDatabase[updateurl] = req.body["newurl"] //changes the database
+  res.redirect('/urls');
+});
+
+
 
 app.get("/u/:shortURL", (req, res) => {
 
   var url= req.url.replace(/\/u\//i,"");
-  console.log(urlDatabase[url]);
   if (urlDatabase[url]){
     res.redirect(urlDatabase[url]);
   } else{
