@@ -21,6 +21,7 @@ app.get("/", (req, res) => { //handles any get method with the url of /
 
 app.get("/urls", (req, res) => { //handles any get method to url of /urls and renders the urls_index page & the object of the urldatabase
   let templateVars = { urls: urlDatabase };
+  console.log(req.headers);
   res.render("urls_index", templateVars);
 });
 
