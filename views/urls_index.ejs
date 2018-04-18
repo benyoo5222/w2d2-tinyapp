@@ -8,14 +8,11 @@
       <% newkeys.push(key) %> <!-- pushed each key into a new array -->
       <% } %>
 
-
       <% for(var a = 0; a < newkeys.length; a++){ %> <!-- used a for loop to match each shortened urls to long URLs -->
         <% shorturl = newkeys[a]%>
         <form action=/urls/<%= shorturl %>/delete method="POST" id="deleteurl" >
           <li > <%= newkeys[a] %> --> <a href= <%= urls[newkeys[a]] %> > <%= urls[newkeys[a]]; %></a>  <a href = /urls/<%= shorturl %> > Edit</a> /urls/<%= shorturl %>
             <button type="submit" form="deleteurl" name="deleteurl" value=<%= newkeys[a] %>> Delete</button></li>
-
-
         </form>
       <% } %>
 
