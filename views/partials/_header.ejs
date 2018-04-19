@@ -3,15 +3,13 @@
 <body>
 
     <h1> URL Shortner! </h1>
-    <% if (username == undefined) {%> <!-- if the username of the cookie is undefined then keep the username form -->
-        <form action='/login' method='POST'>
-        <input type='text' id='username' name='username' placeholder= 'Username'>
-        <input type='submit' value='Log in'>
-    </form>
+    <% if (cookieid == undefined) {%> <!-- if the username of the cookie is undefined then keep the username form -->
+        <a href='/login'> Login</a>
+        <p>Not a member yet? <a href='/register'> Register</a> here!</p>
     <% } else{ %> <!-- ELSE use the value that they passed in to the username form to replace the input form -->
     <form action='/logout' method='POST' id='username'>
-    <%= username %>
-    <button type='submit' form='username' name='username' value=<%=username%> > Logout</button>
+    <%= cookieid['email'] %>
+    <button type='submit' form='username' name='username' value=<%=cookieid['email']%> > Logout</button>
     </form>
 
     <% } %>
