@@ -7,10 +7,10 @@
         <a href='/login'> Login</a>
         <p>Not a member yet? <a href='/register'> Register</a> here!</p>
     <% } else{ %> <!-- ELSE use the value that they passed in to the username form to replace the input form -->
-    <form action='/logout' method='POST' id='username'>
-    <%= cookieid['email'] %>
-    <button type='submit' form='username' name='username' value=<%=cookieid['email']%> > Logout</button>
-    </form>
+        <form action='/logout' method='POST' id='username'>
+        <%= cookieid['email'] %>
+        <button type='submit' form='username' name='username' value=<%=cookieid['email']%> > Logout</button>
+        </form>
 
     <% } %>
 

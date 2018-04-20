@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/benyoo5222/w2d2-tinyapp#readme",
   "dependencies": {
+    "bcrypt": "^2.0.0",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.3",
     "ejs": "^2.5.8",
     "express": "^4.16.3"
   }

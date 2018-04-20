@@ -1,21 +1,22 @@
 <%- include('partials/_header.ejs') %>
 <body>
     <!-- Add your EJS code here -->
-
     <ul>
-      <% var newkeys= []; %>
       <% for (key in urls) {%> <!-- getting each key in the urls object brought over by the .render in express_server.js -->
-        <% if(cookieid) {%>
-          <% if(urls[key].userID == cookieid.id) { %>
+
+        <% if(cookieid) {%> <!-- if a cookie is defined-->
+          <% if(urls[key].userID == cookieid.id) { %> <!-- if the cookie id matches the urls database id, it will show theeir websites that they shortened-->
+
             <p> This the shortened url</p>
+
               <form action=/urls/<%= key %>/delete method="POST" id="deleteurl" >
 
               <li > <%= key %> --> <a href= <%= urls[key].website %> > <%= urls[key].website %></a>   <a href = /urls/<%= key %> > Edit</a> /urls/<%= key %>
                 <button type="submit" form="deleteurl" name="deleteurl" value=<%= key %>> Delete</button></li>
-
             </form>
 
             <% } %>
+
           <% } else { %>
                 <p> This the shortened url</p>
                   <form action=/urls/<%= key %>/delete method="POST" id="deleteurl" >
@@ -29,6 +30,6 @@
     </ul>
 
 
-    <p> Click <a href="/urls/new"> HERE </a> to shorten any urls! </p><!-- currently a dead link but send them to a page to write thier url and we shorten it for them -->
+    <p> Click <a href="/urls/new"> HERE </a> to shorten any urls! </p><!-- Creates a link to shorten urls -->
 </body>
 </html>
