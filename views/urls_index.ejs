@@ -11,7 +11,7 @@
 
               <form action=/urls/<%= key %>/delete method="POST" id="deleteurl" >
 
-              <li > <%= key %> --> <a href= <%= urls[key].website %> > <%= urls[key].website %></a>   <a href = /urls/<%= key %> > Edit</a> /urls/<%= key %>
+              <li > <a href= <%= urls[key].website %> > <%= key %></a> --> <a href= <%= urls[key].website %> > <%= urls[key].website %></a>   <a href = /urls/<%= key %> > Edit</a> /urls/<%= key %>
                 <button type="submit" form="deleteurl" name="deleteurl" value=<%= key %>> Delete</button></li>
             </form>
 
@@ -21,7 +21,7 @@
                 <p> This the shortened url</p>
                   <form action=/urls/<%= key %>/delete method="POST" id="deleteurl" >
 
-                  <li > <%= key %> --> <a href= <%= urls[key].website %> > <%= urls[key].website %></a>   <a href = /urls/<%= key %> > Edit</a> /urls/<%= key %>
+                  <li > <a href= <%= urls[key].website %> > <%= key %></a> --> <a href= <%= urls[key].website %> > <%= urls[key].website %></a>   <a href = /urls/<%= key %> > Edit</a> /urls/<%= key %>
                   <button type="submit" form="deleteurl" name="deleteurl" value=<%= key %>> Delete</button></li>
 
                 </form>
